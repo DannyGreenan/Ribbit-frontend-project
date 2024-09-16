@@ -1,7 +1,9 @@
+import banner from "../assets/img/banner-bg.png";
+
 const Footer = () => {
   return (
-    <section>
-      <h2>Footer</h2>
+    <section className="footer">
+      <img src={banner}></img>
     </section>
   );
 };
