@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
+import ArticlePage from "./components/ArticlePage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/home/:topic" element={<Home />} />
+        <Route path="/home/:topic/:article_id" element={<ArticlePage />} />
       </Routes>
       <Footer />
     </>

@@ -3,7 +3,16 @@ import { useParams } from "react-router-dom";
 import { getAllArticles } from "../api";
 import Pagination from "react-bootstrap/Pagination";
 
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Dropdown,
+  DropdownDivider,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { topic } = useParams();
@@ -28,8 +37,31 @@ const Home = () => {
   };
 
   return (
-    <section>
+    <section className="home">
       <Container>
+        <Row>
+          <Dropdown>
+            <Dropdown.Toggle id="dropdown-basic">
+              {topic ? topic : "Choose Topic"}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item as={Link} to="/home/coding">
+                Coding
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to="/home/football">
+                Football
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to="/home/cooking">
+                Cooking
+              </Dropdown.Item>
+              <DropdownDivider />
+              <Dropdown.Item as={Link} to="/home">
+                All Topics
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Row>
         <Row>
           {articles
             ? articles.map((article, index) => {
@@ -50,9 +82,8 @@ const Home = () => {
                         <Card.Title>{article.title}</Card.Title>
                         <Card.Text>{article.topic}</Card.Text>
                         <Button
-                          variant="warning"
                           className="custom-button"
-                          href={``}>
+                          href={`/home/${article.topic}/${article.article_id}`}>
                           More Details
                         </Button>
                       </Card.Body>
