@@ -297,11 +297,42 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-radius: 20px;
 }
 
-.article-page button {
-  color: #ffffff;
-  background-color: #00414f;
+.article-page .votes-img {
+  width: 50px;
+  height: 50px;
+  display: flex;
 }
 
+.article-page button {
+  color: #ffffff;
+}
+
+.article-page .error-img {
+  width: 300px;
+  height: 300px;
+}
+
+.article-page .votes-button {
+  color: #00414f !important;
+  background-color: #00414f00 !important;
+  outline: none !important  ;
+  border: 0 !important;
+}
+
+.article-page .alert {
+  width: 100%;
+  overflow: hidden;
+}
+
+.article-page .alert .author {
+  float: left;
+}
+
+.article-page .alert .date {
+  float: right;
+  background-color: #00414f00 !important;
+  color: #00414f !important;
+}
 /* Footer CSS */
 
 .footer {
