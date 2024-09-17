@@ -63,7 +63,7 @@ a:hover {
 }
 
 img {
-  width: 100%;
+  width: 120%;
   height: auto;
 }
 
@@ -255,13 +255,21 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 /* Home Css */
 .home {
   margin-top: 0;
-  padding: 260px 0 100px 0;
+  padding: 180px 0 100px 0;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .home .custom-card .custom-button {
   background-color: #00414f;
+}
+
+.home .custom-card {
+  border-radius: 20px;
+}
+
+.home .custom-card img {
+  border-radius: 20px;
 }
 
 .home button {
@@ -274,19 +282,35 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 /* ArticlePage CSS */
 
 .article-page {
+  color: #00414f;
   margin-top: 0;
-  padding: 260px 0 100px 0;
+  padding: 180px 0 100px 0;
   background-size: cover;
   background-repeat: no-repeat;
+  text-align: center;
 }
-.article-page .custom-card img {
+.article-page img {
   width: 50%;
-  height: auto;
+  height: 50%;
   display: block;
-  margin: 0 auto;
+  margin: 20px auto;
+  border-radius: 20px;
 }
+
+.article-page button {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+/* Footer CSS */
 
 .footer {
   border-radius: 30px;
   overflow: hidden;
+}
+
+.footer img {
+  height: 50%;
+  width: 100%;
+  text-align: center;
 }
