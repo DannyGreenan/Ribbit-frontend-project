@@ -43,6 +43,7 @@ const ArticlePage = () => {
     }
   };
 
+  console.log(comments);
   return (
     <>
       <section className="article-page">
@@ -105,18 +106,28 @@ const ArticlePage = () => {
 
           <Col sm={3}></Col>
         </Row>
+        <br></br>
         <Row>
-          <Accordion defaultActiveKey={["0"]} alwaysOpen="true">
-            {comments.map((comment, index) => {
-              return (
-                <Accordion.Item eventKey={index} key={index}>
-                  <Accordion.Header>{comment.author}</Accordion.Header>
-                  <Accordion.Body>{comment.body}</Accordion.Body>
-                </Accordion.Item>
-              );
-            })}
-          </Accordion>
+          <h2>Comments</h2>
         </Row>
+        {comments.length > 0 ? (
+          <Row>
+            <Accordion defaultActiveKey={["0"]} alwaysOpen="true">
+              {comments.map((comment, index) => {
+                return (
+                  <Accordion.Item eventKey={index} key={index}>
+                    <Accordion.Header>{comment.author}</Accordion.Header>
+                    <Accordion.Body>{comment.body}</Accordion.Body>
+                  </Accordion.Item>
+                );
+              })}
+            </Accordion>
+          </Row>
+        ) : (
+          <Row>
+            <p>No Comments</p>
+          </Row>
+        )}
       </section>{" "}
     </>
   );
