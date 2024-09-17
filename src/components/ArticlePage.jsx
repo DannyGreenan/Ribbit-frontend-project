@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { Accordion, Row, Col } from "react-bootstrap";
+import { Accordion, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 
-import { getArticleById, getArticleComments } from "../api";
+import { getArticleById, getArticleComments, patchArticleVotes } from "../api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,10 +10,14 @@ const ArticlePage = () => {
 
   const [article, SetArticle] = useState({});
   const [comments, setComments] = useState([]);
+  const [isLoadingUp, setLoadingUp] = useState(false);
+  const [isLoadingDown, setLoadingDown] = useState(false);
+  const [votes, setVotes] = useState(0);
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
       SetArticle(article);
+      setVotes(article.votes);
     });
   }, [article_id]);
 
@@ -23,7 +27,21 @@ const ArticlePage = () => {
     });
   }, [article_id]);
 
-  console.log(comments[0]);
+  const handleCroak = (value) => {
+    if (value === "up") {
+      setLoadingUp(true);
+      patchArticleVotes(article_id, 1).then((res) => {
+        setVotes(votes + 1);
+        setLoadingUp(false);
+      });
+    } else {
+      setLoadingDown(true);
+      patchArticleVotes(article_id, -1).then((res) => {
+        setVotes(votes - 1);
+        setLoadingDown(false);
+      });
+    }
+  };
 
   return (
     <>
@@ -51,14 +69,32 @@ const ArticlePage = () => {
         </Row>
         <Row>
           <Col sm={3}></Col>
-          <Col sm>
-            <button>UpCroak</button>
-          </Col>
-          <Col sm>
-            <p>{article.votes}</p>
-          </Col>
-          <Col sm>
-            <button>DownCroak</button>
+          <Col>
+            <ButtonGroup className="button-group">
+              <Button
+                disabled={isLoadingUp}
+                onClick={
+                  !isLoadingUp
+                    ? () => {
+                        handleCroak("up");
+                      }
+                    : null
+                }>
+                {isLoadingUp ? "Loading..." : "UpCroak"}
+              </Button>
+              <Button disabled>{votes}</Button>
+              <Button
+                disabled={isLoadingDown}
+                onClick={
+                  !isLoadingDown
+                    ? () => {
+                        handleCroak();
+                      }
+                    : null
+                }>
+                {isLoadingDown ? "Loading..." : "DownCroak"}
+              </Button>
+            </ButtonGroup>
           </Col>
           <Col sm>
             <button>Comment</button>
@@ -73,7 +109,7 @@ const ArticlePage = () => {
           <Accordion defaultActiveKey={["0"]} alwaysOpen="true">
             {comments.map((comment, index) => {
               return (
-                <Accordion.Item eventKey={index} alwaysOpen>
+                <Accordion.Item eventKey={index} key={index}>
                   <Accordion.Header>{comment.author}</Accordion.Header>
                   <Accordion.Body>{comment.body}</Accordion.Body>
                 </Accordion.Item>

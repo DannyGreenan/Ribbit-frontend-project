@@ -298,8 +298,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .article-page button {
-  margin-left: 40px;
-  margin-right: 40px;
+  color: #ffffff;
+  background-color: #00414f;
 }
 
 /* Footer CSS */
