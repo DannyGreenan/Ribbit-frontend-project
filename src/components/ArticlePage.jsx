@@ -1,7 +1,18 @@
 import { useParams } from "react-router-dom";
-import { Accordion, Row, Col, ButtonGroup, Button } from "react-bootstrap";
+import { Row, Col, Button, Alert } from "react-bootstrap";
 
-import { getArticleById, getArticleComments, patchArticleVotes } from "../api";
+import upLogo from "../assets/img/up.png";
+import downLogo from "../assets/img/down.png";
+import errorLogo from "../assets/img/error.png";
+import successLogo from "../assets/img/success.png";
+
+import {
+  deleteComment,
+  getArticleById,
+  getArticleComments,
+  patchArticleVotes,
+  postComment,
+} from "../api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,7 +23,12 @@ const ArticlePage = () => {
   const [comments, setComments] = useState([]);
   const [isLoadingUp, setLoadingUp] = useState(false);
   const [isLoadingDown, setLoadingDown] = useState(false);
+  const [isLoadingComment, setIsLoadingComment] = useState(false);
   const [votes, setVotes] = useState(0);
+  const [commentInput, setCommentInput] = useState("");
+  const [_, setTrigger] = useState(false);
+  const [noCommentInput, setNoCommentInput] = useState(false);
+  const [CommentPosted, setCommentPosted] = useState(false);
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
@@ -25,9 +41,9 @@ const ArticlePage = () => {
     getArticleComments(article_id).then((comments) => {
       setComments(comments);
     });
-  }, [article_id]);
+  }, [article_id, commentInput, _]);
 
-  const handleCroak = (value) => {
+  const handleArticleVote = (value) => {
     if (value === "up") {
       setLoadingUp(true);
       patchArticleVotes(article_id, 1).then((res) => {
@@ -43,7 +59,37 @@ const ArticlePage = () => {
     }
   };
 
-  console.log(comments);
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    setIsLoadingComment(true);
+    if (commentInput === "") {
+      setNoCommentInput(true);
+      setIsLoadingComment(false);
+    } else {
+      setNoCommentInput(false);
+      postComment(article_id, commentInput, "tickle122").then((res) => {
+        setCommentInput("");
+        setIsLoadingComment(false);
+        setCommentPosted(true);
+      });
+    }
+    //hardCoded username is placeholder until login page implemented
+  };
+
+  const handleCommentVote = (comment_id, value) => {
+    console.log(comment_id, value, "Comment Vote");
+  };
+
+  const onDeleteComment = (comment_id) => {
+    deleteComment(comment_id).then(() => {
+      setTrigger((prev) => !prev);
+    });
+  };
+
+  const onInputClick = () => {
+    setCommentPosted(false);
+  };
+
   return (
     <>
       <section className="article-page">
@@ -71,31 +117,41 @@ const ArticlePage = () => {
         <Row>
           <Col sm={3}></Col>
           <Col>
-            <ButtonGroup className="button-group">
-              <Button
-                disabled={isLoadingUp}
-                onClick={
-                  !isLoadingUp
-                    ? () => {
-                        handleCroak("up");
-                      }
-                    : null
-                }>
-                {isLoadingUp ? "Loading..." : "UpCroak"}
-              </Button>
-              <Button disabled>{votes}</Button>
-              <Button
-                disabled={isLoadingDown}
-                onClick={
-                  !isLoadingDown
-                    ? () => {
-                        handleCroak();
-                      }
-                    : null
-                }>
-                {isLoadingDown ? "Loading..." : "DownCroak"}
-              </Button>
-            </ButtonGroup>
+            <Button
+              className="votes-button"
+              disabled={isLoadingUp}
+              onClick={
+                !isLoadingUp
+                  ? () => {
+                      handleArticleVote("up");
+                    }
+                  : null
+              }>
+              {isLoadingUp ? (
+                "Loading..."
+              ) : (
+                <img className="votes-img" src={upLogo}></img>
+              )}
+            </Button>
+            <Button className="votes-button" disabled>
+              {votes}
+            </Button>
+            <Button
+              className="votes-button"
+              disabled={isLoadingDown}
+              onClick={
+                !isLoadingDown
+                  ? () => {
+                      handleArticleVote();
+                    }
+                  : null
+              }>
+              {isLoadingDown ? (
+                "Loading..."
+              ) : (
+                <img className="votes-img" src={downLogo}></img>
+              )}
+            </Button>
           </Col>
           <Col sm>
             <button>Comment</button>
@@ -108,20 +164,91 @@ const ArticlePage = () => {
         </Row>
         <br></br>
         <Row>
-          <h2>Comments</h2>
+          <h2>Comment Pond</h2>
         </Row>
+        <Row>
+          <div>
+            <form id="comment-form" onSubmit={(e) => handleCommentSubmit(e)}>
+              <input
+                type="text"
+                placeholder="comment.."
+                value={commentInput}
+                onClick={onInputClick}
+                onChange={(e) => setCommentInput(e.target.value)}></input>
+              <Button type="submit">
+                {isLoadingComment ? "Adding comment ..." : "Comment"}
+              </Button>
+              {noCommentInput ? (
+                <img src={errorLogo} className="error-img"></img>
+              ) : null}
+              {CommentPosted ? (
+                <img src={successLogo} className="error-img"></img>
+              ) : null}
+            </form>
+          </div>
+        </Row>
+
         {comments.length > 0 ? (
           <Row>
-            <Accordion defaultActiveKey={["0"]} alwaysOpen="true">
+            <Col sm={3}></Col>
+            <Col sm>
               {comments.map((comment, index) => {
                 return (
-                  <Accordion.Item eventKey={index} key={index}>
-                    <Accordion.Header>{comment.author}</Accordion.Header>
-                    <Accordion.Body>{comment.body}</Accordion.Body>
-                  </Accordion.Item>
+                  <Alert key={index} variant="info" className="alert">
+                    <Col sm={3}></Col>
+                    <Col>
+                      {" "}
+                      <h5 className="author">
+                        {comment.author} {comment.comment_id}
+                      </h5>
+                      <span className="date">
+                        {new Date(comment.created_at).toLocaleDateString(
+                          "en-US",
+                          { year: "numeric", month: "long", day: "numeric" }
+                        )}
+                      </span>{" "}
+                    </Col>
+                    <Col sm={3}></Col>
+
+                    <br></br>
+                    <br></br>
+                    {comment.body}
+                    <Col sm={3}></Col>
+                    <Col>
+                      <Button
+                        value={comment.comment_id}
+                        className="votes-button"
+                        onClick={(e) => {
+                          handleCommentVote(e.currentTarget.value, 1);
+                        }}>
+                        {<img className="votes-img" src={upLogo}></img>}
+                      </Button>
+                      <Button className="votes-button" disabled>
+                        {comment.votes}
+                      </Button>
+                      <Button
+                        value={comment.comment_id}
+                        className="votes-button"
+                        onClick={(e) => {
+                          handleCommentVote(e.currentTarget.value, -1);
+                        }}>
+                        {<img className="votes-img" src={downLogo}></img>}
+                      </Button>
+                      <Button
+                        className="date"
+                        value={comment.comment_id}
+                        onClick={(e) => {
+                          onDeleteComment(e.currentTarget.value);
+                        }}>
+                        Delete
+                      </Button>
+                    </Col>
+                    <Col sm={3}></Col>
+                  </Alert>
                 );
               })}
-            </Accordion>
+            </Col>
+            <Col sm={3}></Col>
           </Row>
         ) : (
           <Row>

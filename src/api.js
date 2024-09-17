@@ -34,3 +34,18 @@ export const patchArticleVotes = (article_id, num) => {
     inc_votes: num,
   });
 };
+
+export const postComment = (article_id, comment, username) => {
+  return ncNews
+    .post(`/articles/${article_id}/comments`, {
+      username: username,
+      body: comment,
+    })
+    .then(({ data }) => {
+      return data.comment;
+    });
+};
+
+export const deleteComment = (comment_id) => {
+  return ncNews.delete(`/comments/${comment_id}`);
+};
