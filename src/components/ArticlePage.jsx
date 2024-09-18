@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
 import { Row, Col, Button, Alert } from "react-bootstrap";
+
+import { UserContext } from "../context/User";
 
 import upLogo from "../assets/img/up.png";
 import downLogo from "../assets/img/down.png";
@@ -29,6 +32,7 @@ const ArticlePage = () => {
   const [_, setTrigger] = useState(false);
   const [noCommentInput, setNoCommentInput] = useState(false);
   const [CommentPosted, setCommentPosted] = useState(false);
+  const { username } = useContext(UserContext);
 
   useEffect(() => {
     getArticleById(article_id).then((article) => {
@@ -67,13 +71,12 @@ const ArticlePage = () => {
       setIsLoadingComment(false);
     } else {
       setNoCommentInput(false);
-      postComment(article_id, commentInput, "tickle122").then((res) => {
+      postComment(article_id, commentInput, username).then((res) => {
         setCommentInput("");
         setIsLoadingComment(false);
         setCommentPosted(true);
       });
     }
-    //hardCoded username is placeholder until login page implemented
   };
 
   const handleCommentVote = (comment_id, value) => {

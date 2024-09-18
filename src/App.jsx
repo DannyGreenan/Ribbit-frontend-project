@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import ArticlePage from "./components/ArticlePage";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <>
       <Header />

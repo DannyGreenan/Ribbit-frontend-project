@@ -3,11 +3,17 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
+import { UserProvider } from "./context/User.jsx";
+import { LoadingProvider } from "./context/Loading.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <UserProvider>
+      <LoadingProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </LoadingProvider>
+    </UserProvider>
   </StrictMode>
 );
