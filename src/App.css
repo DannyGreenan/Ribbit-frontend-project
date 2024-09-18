@@ -262,6 +262,13 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .home .custom-card .custom-button {
   background-color: #00414f;
+  border: 1px solid #00414f;
+}
+
+.home .custom-card .custom-button:hover {
+  background-color: #afeb87;
+  border: 1px solid #00414f;
+  color: #00414f;
 }
 
 .home .custom-card {
@@ -274,9 +281,36 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .home button {
   background-color: #00414f;
+  border: 1px solid #00414f;
   padding: 20px;
   margin: 20px;
   width: 100%;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-item .page-link {
+  color: #00414f;
+  border: 1px solid #00414f;
+  border-radius: 4px;
+}
+
+.page-item.active .page-link {
+  background-color: #00414f;
+  color: #ffffff;
+  border-color: #00414f;
+}
+
+.page-item .page-link:hover {
+  background-color: #00414f;
+  color: #ffffff;
+}
+
+.center-pagination {
+  display: flex;
+  justify-content: center;
 }
 
 /* ArticlePage CSS */

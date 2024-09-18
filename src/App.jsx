@@ -8,10 +8,10 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 import ArticlePage from "./components/ArticlePage";
+import PageNotFound from "./components/Errors/PageNotFound";
+import TopicNotFound from "./components/Errors/TopicNotFound";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-
   return (
     <>
       <Header />
@@ -19,6 +19,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/home/:topic" element={<Home />} />
         <Route path="/home/:topic/:article_id" element={<ArticlePage />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
     </>
