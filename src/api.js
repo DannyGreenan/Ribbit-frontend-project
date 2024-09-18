@@ -4,12 +4,14 @@ const ncNews = axios.create({
   baseURL: "https://backend-project-g86q.onrender.com/api",
 });
 
-export const getAllArticles = (topic, pageNum) => {
+export const getAllArticles = (topic, pageNum, sortByQuery, orderQuery) => {
   return ncNews
     .get("/articles", {
       params: {
         topic: topic,
         p: pageNum,
+        sort_by: sortByQuery,
+        order: orderQuery,
       },
     })
     .then(({ data }) => {
