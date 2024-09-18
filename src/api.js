@@ -5,6 +5,7 @@ const ncNews = axios.create({
 });
 
 export const getAllArticles = (topic, pageNum, sortByQuery, orderQuery) => {
+  const topicsList = ["coding", "football", "cooking", ""];
   return ncNews
     .get("/articles", {
       params: {
