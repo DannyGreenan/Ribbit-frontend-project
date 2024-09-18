@@ -9,13 +9,21 @@ import Home from "./components/Home";
 import Footer from "./components/Footer";
 import ArticlePage from "./components/ArticlePage";
 import PageNotFound from "./components/Errors/PageNotFound";
-import TopicNotFound from "./components/Errors/TopicNotFound";
+import Login from "./components/Login";
 
 function App() {
   return (
     <>
       <Header />
       <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Login />
+            </>
+          }
+        />
         <Route path="/home" element={<Home />} />
         <Route path="/home/:topic" element={<Home />} />
         <Route path="/home/:topic/:article_id" element={<ArticlePage />} />

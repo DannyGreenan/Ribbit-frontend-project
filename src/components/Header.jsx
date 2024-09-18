@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { useState, useEffect, useContext } from "react";
+import { Navbar, Nav, Container, Image, Row, Col } from "react-bootstrap";
+import { UserContext } from "../context/User";
+import { Link } from "react-router-dom";
 
 import logo from "../assets/img/text-logo.png";
 import navIcon1 from "../assets/img/nav-icon1.svg";
@@ -10,6 +12,7 @@ export const Header = () => {
   const [activeLink, setActiveLink] = useState("home");
 
   const [scrolled, setScrolled] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     const onScroll = () => {
@@ -28,10 +31,14 @@ export const Header = () => {
     setActiveLink(value);
   };
 
+  const onLogout = () => {
+    setUser({});
+  };
+
   return (
     <Navbar expand="lg" className={scrolled ? "scrolled" : ""}>
       <Container>
-        <Navbar.Brand href="/home">
+        <Navbar.Brand as={Link} to="/home">
           <img src={logo} alt="logo"></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -39,30 +46,35 @@ export const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link
-              href="/home"
+              as={Link}
+              to="/home"
               className={
                 activeLink === "home" ? "active navbar-link" : "navbar-link"
               }
               onClick={() => onUpdateActiveLink("home")}>
               Home
             </Nav.Link>
+
             <Nav.Link
-              href="/profile"
+              as={Link}
+              to="/profile"
               className={
-                activeLink === "skills" ? "active navbar-link" : "navbar-link"
+                activeLink === "profile" ? "active navbar-link" : "navbar-link"
               }
-              onClick={() => onUpdateActiveLink("skills")}>
-              Profile
+              onClick={() => onUpdateActiveLink("profile")}>
+              {user.username ? user.username : "Profile"}
             </Nav.Link>
             <Nav.Link
-              href="/"
+              as={Link}
+              to="/"
               className={
-                activeLink === "projects" ? "active navbar-link" : "navbar-link"
+                activeLink === "logout" ? "active navbar-link" : "navbar-link"
               }
-              onClick={() => onUpdateActiveLink("projects")}>
+              onClick={() => onLogout()}>
               Logout
             </Nav.Link>
           </Nav>
+
           <span className="navbar-text">
             <div className="social-icon">
               <a href="#">
@@ -76,7 +88,7 @@ export const Header = () => {
               </a>
             </div>
             <button className="vvd" onClick={() => console.log("connect")}>
-              <span>Post a Article</span>
+              <span>Post an Article</span>
             </button>
           </span>
         </Navbar.Collapse>

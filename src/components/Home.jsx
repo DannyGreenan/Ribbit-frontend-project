@@ -19,6 +19,7 @@ import {
   DropdownDivider,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { ArrowRightCircle } from "react-bootstrap-icons";
 
 const Home = () => {
   const { topic } = useParams();
@@ -198,8 +199,13 @@ const Home = () => {
                           <Card.Text>{article.topic}</Card.Text>
                           <Button
                             className="custom-button"
-                            href={`/home/${article.topic}/${article.article_id}`}>
-                            More Details
+                            as={Link}
+                            to={`/home/${article.topic}/${article.article_id}`}>
+                            See Article{" "}
+                            <ArrowRightCircle
+                              size={25}
+                              className="card-button"
+                            />
                           </Button>
                         </Card.Body>
                       </Card>

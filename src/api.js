@@ -4,8 +4,13 @@ const ncNews = axios.create({
   baseURL: "https://backend-project-g86q.onrender.com/api",
 });
 
+export const getUser = (username) => {
+  return ncNews.get(`/users/${username}`).then(({ data }) => {
+    return data.user;
+  });
+};
+
 export const getAllArticles = (topic, pageNum, sortByQuery, orderQuery) => {
-  const topicsList = ["coding", "football", "cooking", ""];
   return ncNews
     .get("/articles", {
       params: {

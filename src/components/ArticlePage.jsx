@@ -19,10 +19,11 @@ import {
 } from "../api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Trash } from "react-bootstrap-icons";
 
 const ArticlePage = () => {
   const { article_id, topic } = useParams();
-  const [article, SetArticle] = useState({});
+  const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
   const [isLoadingUp, setLoadingUp] = useState(false);
   const [isLoadingDown, setLoadingDown] = useState(false);
@@ -33,12 +34,12 @@ const ArticlePage = () => {
   const [_, setTrigger] = useState(false);
   const [noCommentInput, setNoCommentInput] = useState(false);
   const [CommentPosted, setCommentPosted] = useState(false);
-  const { username } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getArticleById(article_id)
       .then((article) => {
-        SetArticle(article);
+        setArticle(article);
         setVotes(article.votes);
       })
       .catch((err) => {
@@ -76,7 +77,7 @@ const ArticlePage = () => {
       setIsLoadingComment(false);
     } else {
       setNoCommentInput(false);
-      postComment(article_id, commentInput, username).then((res) => {
+      postComment(article_id, commentInput, user.username).then((res) => {
         setCommentInput("");
         setIsLoadingComment(false);
         setCommentPosted(true);
@@ -223,9 +224,7 @@ const ArticlePage = () => {
                       <Col sm={3}></Col>
                       <Col>
                         {" "}
-                        <h5 className="author">
-                          {comment.author} {comment.comment_id}
-                        </h5>
+                        <h5 className="author">{comment.author}</h5>
                         <span className="date">
                           {new Date(comment.created_at).toLocaleDateString(
                             "en-US",
@@ -259,14 +258,17 @@ const ArticlePage = () => {
                           }}>
                           {<img className="votes-img" src={downLogo}></img>}
                         </Button>
-                        <Button
-                          className="date"
-                          value={comment.comment_id}
-                          onClick={(e) => {
-                            onDeleteComment(e.currentTarget.value);
-                          }}>
-                          Delete
-                        </Button>
+                        {comment.author === user.username ? (
+                          <Button
+                            className="comment-delete
+                          "
+                            value={comment.comment_id}
+                            onClick={(e) => {
+                              onDeleteComment(e.currentTarget.value);
+                            }}>
+                            <Trash size={25} />
+                          </Button>
+                        ) : null}
                       </Col>
                       <Col sm={3}></Col>
                     </Alert>
