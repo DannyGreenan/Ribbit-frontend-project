@@ -6,13 +6,9 @@ The website Ribbit is a modern web application designed to mimic a Reddit-like e
 
 To use the website please login as one of the users "eg tickle122". Once logged in you can browse the homepage which offers different topics and sorting options. From here you can click on any article to find out more information and post comments or give the article a like.
 
-## Deployed website
+### [Deployed website](https://ribbitribbit.netlify.app/)
 
-    https://ribbitribbit.netlify.app/
-
-## Backend Repo
-
-    https://github.com/DannyGreenan/backend-project.git
+### [Backend Repo](https://github.com/DannyGreenan/backend-project.git)
 
 ## Setup
 
