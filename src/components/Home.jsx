@@ -4,6 +4,8 @@ import { getAllArticles } from "../api";
 import Pagination from "react-bootstrap/Pagination";
 import topicErrorImg from "../assets/img/topic-error.png";
 
+import { CaretUp, ChatDots, ArrowRightCircle } from "react-bootstrap-icons";
+
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import loadingAni from "../assets/animation/loading.json";
 
@@ -19,7 +21,6 @@ import {
   DropdownDivider,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ArrowRightCircle } from "react-bootstrap-icons";
 
 const Home = () => {
   const { topic } = useParams();
@@ -190,23 +191,47 @@ const Home = () => {
                       key={index}
                       className="mb-4">
                       <Card
+                        as={Link}
+                        to={`/home/${article.topic}/${article.article_id}`}
                         style={{ width: "100%" }}
                         key={article.title}
                         className="custom-card">
                         <Card.Img variant="top" src={article.article_img_url} />
                         <Card.Body>
+                          <Card.Text>p/{article.topic}</Card.Text>
+
                           <Card.Title>{article.title}</Card.Title>
-                          <Card.Text>{article.topic}</Card.Text>
-                          <Button
-                            className="custom-button"
-                            as={Link}
-                            to={`/home/${article.topic}/${article.article_id}`}>
-                            See Article{" "}
-                            <ArrowRightCircle
-                              size={25}
-                              className="card-button"
-                            />
-                          </Button>
+                          <Row>
+                            <Col md={4}>
+                              <Button
+                                as={Link}
+                                to={`/home/${article.topic}/${article.article_id}`}
+                                className="custom-button">
+                                {article.votes}
+                                <CaretUp size={25} className="card-button" />
+                              </Button>
+                            </Col>
+                            <Col md={4}>
+                              {" "}
+                              <Button
+                                className="custom-button"
+                                as={Link}
+                                to={`/home/${article.topic}/${article.article_id}`}>
+                                <ChatDots size={25} className="card-button" />{" "}
+                              </Button>
+                            </Col>
+                            <Col md={4}>
+                              <Button
+                                className="custom-button"
+                                as={Link}
+                                to={`/home/${article.topic}/${article.article_id}`}>
+                                <ArrowRightCircle
+                                  size={25}
+                                  className="card-button"
+                                />
+                              </Button>
+                            </Col>
+                          </Row>
                         </Card.Body>
                       </Card>
                     </Col>

@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import { Navbar, Nav, Container, Image, Row, Col } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { UserContext } from "../context/User";
 import { Link } from "react-router-dom";
 
 import logo from "../assets/img/text-logo.png";
 import navIcon1 from "../assets/img/nav-icon1.svg";
-import navIcon2 from "../assets/img/nav-icon2.svg";
-import navIcon3 from "../assets/img/nav-icon3.svg";
+import navIcon2 from "../assets/img/artstation.png";
+import navIcon3 from "../assets/img/resume.png";
+import navIcon4 from "../assets/img/github.png";
 
 export const Header = () => {
   const [activeLink, setActiveLink] = useState("home");
@@ -77,13 +78,16 @@ export const Header = () => {
 
           <span className="navbar-text">
             <div className="social-icon">
-              <a href="#">
+              <a href="https://www.linkedin.com/in/danny-greenan/">
                 <img src={navIcon1} alt=""></img>
               </a>
-              <a href="#">
+              <a href="https://github.com/DannyGreenan">
+                <img src={navIcon4} alt=""></img>
+              </a>
+              <a href="https://www.artstation.com/dannygreenan">
                 <img src={navIcon2} alt=""></img>
               </a>
-              <a href="#">
+              <a href="https://docs.google.com/document/d/1Oap6DoS1R_vl4su7goZcx_PZaqhcjxceXkMEEBGGqYU/edit?usp=sharing">
                 <img src={navIcon3} alt=""></img>
               </a>
             </div>

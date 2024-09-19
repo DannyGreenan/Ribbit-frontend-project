@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import logo from "../assets/img/logo.png";
 import { getUser } from "../api";
 import { LoadingContext } from "../context/Loading";
 import { UserContext } from "../context/User";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -19,6 +19,9 @@ const Login = () => {
   const [usernameError, setUsernameError] = useState(false);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { user, setUser } = useContext(UserContext);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const formRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let ticker = setInterval(() => {
@@ -62,12 +65,23 @@ const Login = () => {
         setUser(user);
         setUsernameError(false);
         setIsLoading(false);
+        setIsDisabled(false);
       })
       .catch((err) => {
         setUsernameError(true);
-
         setIsLoading(false);
       });
+  };
+
+  const handleBrowseTopicsClick = (e) => {
+    e.preventDefault();
+    if (formRef.current) {
+      if (formRef.current.checkValidity()) {
+        navigate("/home");
+      } else {
+        formRef.current.reportValidity();
+      }
+    }
   };
 
   return (
@@ -86,7 +100,7 @@ const Login = () => {
               Supabase, utilising the node-postgres library for database
               interactions.
             </p>
-            <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form onSubmit={handleSubmit} ref={formRef}>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1">
@@ -100,12 +114,12 @@ const Login = () => {
                 />
                 {user.username ? null : (
                   <Form.Label style={{ color: "grey" }}>
-                    default username = tickle122
+                    Please Login, example = tickle122
                   </Form.Label>
                 )}
                 {usernameError ? (
                   <Form.Label style={{ color: "red" }}>
-                    Username not Found
+                    {" " + "Username not Found"}
                   </Form.Label>
                 ) : null}
                 {Object.keys(user).length === 0 ? null : (
@@ -122,10 +136,8 @@ const Login = () => {
                   </button>
                 </Col>
                 <Col>
-                  <Link to="/home">
-                    <button
-                      type="button"
-                      disabled={user.username ? false : true}>
+                  <Link to="#" onClick={handleBrowseTopicsClick}>
+                    <button type="button" disabled={isDisabled}>
                       Browse Topics
                       <ArrowRightCircle size={25} />
                     </button>
