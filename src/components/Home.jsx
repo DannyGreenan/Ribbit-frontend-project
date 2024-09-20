@@ -5,24 +5,19 @@ import Pagination from "react-bootstrap/Pagination";
 import topicErrorImg from "../assets/img/topic-error.png";
 import upVoteImg from "../assets/img/up.png";
 
-import {
-  CaretUp,
-  ChatDots,
-  ArrowRightCircle,
-  Share,
-} from "react-bootstrap-icons";
+import { ChatDots, ArrowRightCircle, Share } from "react-bootstrap-icons";
 
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import loadingAni from "../assets/animation/loading.json";
 
 import { LoadingContext } from "../context/Loading";
+import { UserContext } from "../context/User";
 
 import {
   Container,
   Row,
   Col,
   Card,
-  Button,
   Dropdown,
   DropdownDivider,
 } from "react-bootstrap";
@@ -34,6 +29,7 @@ const Home = () => {
   const [pageNum, setPageNum] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState(false);
+  const { user } = useContext(UserContext);
 
   const [_, setTrigger] = useState(false);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
@@ -63,6 +59,34 @@ const Home = () => {
 
   return (
     <>
+      <Card
+        style={{
+          position: "fixed",
+          top: "200px",
+          color: "#00414f",
+        }}>
+        <Card.Body>
+          <Row>
+            <span>Logged in as ...</span>
+          </Row>
+          <br></br>
+          <Card.Img
+            variant="top"
+            src={user.avatar_url}
+            alt="Reddit avatar"
+            style={{ width: "60px", borderRadius: "50%" }}
+          />
+          <Card.Title>{user.name}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            u/{user.username}
+          </Card.Subtitle>
+        </Card.Body>
+        <Card.Footer>
+          <Link>
+            <span>My Profile</span>
+          </Link>
+        </Card.Footer>
+      </Card>
       {error ? (
         <div
           style={{
@@ -167,16 +191,19 @@ const Home = () => {
             </Row>
             <Row>
               {isLoading ? (
-                <Player
-                  autoplay
-                  loop
-                  src={loadingAni}
-                  style={{ height: "500px", width: "500px" }}>
-                  <Controls
-                    visible={false}
-                    buttons={["play", "repeat", "frame", "debug"]}
-                  />
-                </Player>
+                <>
+                  <Player
+                    autoplay
+                    loop
+                    src={loadingAni}
+                    style={{ height: "500px", width: "500px" }}>
+                    <Controls
+                      visible={false}
+                      buttons={["play", "repeat", "frame", "debug"]}
+                    />
+                  </Player>
+                  <h2>Articles Loading.. </h2>
+                </>
               ) : (
                 articles.map((article, index) => {
                   return (
@@ -200,20 +227,23 @@ const Home = () => {
                               <Card.Text>p/{article.topic}</Card.Text>
                             </Col>
                             <Col sm={6}></Col> {}
-                            <Col className="d-flex justify-content-end align-items-center">
+                            <Col className="d-flex justify-content-end align-items-center position-relative">
                               <img
                                 src={upVoteImg}
                                 alt="Upvote"
                                 className="me-2"
-                                style={{ width: "25px", height: "25px" }}
+                                style={{ width: "50px", height: "50px" }}
                               />
-                              {article.votes}
+                              <span className="vote-badge">
+                                Votes {article.votes}
+                              </span>
                             </Col>
                           </Row>
-
+                          <br></br>
                           <Row>
                             <Card.Title>{article.title}</Card.Title>
                           </Row>
+                          <br></br>
                           <Row className="d-flex justify-content-between flex-row">
                             <Col className="col-4 d-flex justify-content-center">
                               <button
@@ -225,12 +255,19 @@ const Home = () => {
                             </Col>
                             <Col className="col-4 d-flex justify-content-center">
                               {" "}
-                              <button
-                                className="custom-button"
-                                as={Link}
-                                to={`/home/${article.topic}/${article.article_id}`}>
-                                <ChatDots size={25} className="card-button" />{" "}
-                              </button>
+                              <div className="position-relative">
+                                <button
+                                  className="custom-button"
+                                  as={Link}
+                                  to={`/home/${article.topic}/${article.article_id}`}>
+                                  <ChatDots size={25} className="card-button" />
+                                  {article.comment_count > 0 && (
+                                    <span className="comment-badge">
+                                      {article.comment_count}
+                                    </span>
+                                  )}
+                                </button>
+                              </div>
                             </Col>
                             <Col className="col-4 d-flex justify-content-center">
                               <button

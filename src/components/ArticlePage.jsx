@@ -1,6 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
-import { Row, Col, Button, Alert, FloatingLabel, Form } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Button,
+  Alert,
+  FloatingLabel,
+  Form,
+  Card,
+} from "react-bootstrap";
 
 import { UserContext } from "../context/User";
 
@@ -122,6 +130,35 @@ const ArticlePage = () => {
 
   return (
     <>
+      {" "}
+      <Card
+        style={{
+          position: "fixed",
+          top: "200px",
+          color: "#00414f",
+        }}>
+        <Card.Body>
+          <Row>
+            <span>Logged in as ...</span>
+          </Row>
+          <br></br>
+          <Card.Img
+            variant="top"
+            src={user.avatar_url}
+            alt="Reddit avatar"
+            style={{ width: "60px", borderRadius: "50%" }}
+          />
+          <Card.Title>{user.name}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            u/{user.username}
+          </Card.Subtitle>
+        </Card.Body>
+        <Card.Footer>
+          <Link>
+            <span>My Profile</span>
+          </Link>
+        </Card.Footer>
+      </Card>
       {error ? (
         <div
           style={{
@@ -274,7 +311,9 @@ const ArticlePage = () => {
                           <Alert key={index} variant="info" className="alert">
                             <Row>
                               <Col sm={3}>
-                                <h5 className="author">{comment.author}</h5>
+                                <Link to={`/home/profile/${comment.author}`}>
+                                  <h5 className="author">{comment.author}</h5>
+                                </Link>
                               </Col>
                               <Col sm={6}></Col>
                               <Col sm={3}>

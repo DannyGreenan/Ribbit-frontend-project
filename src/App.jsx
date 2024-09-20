@@ -10,6 +10,7 @@ import ArticlePage from "./components/ArticlePage";
 import PageNotFound from "./components/Errors/PageNotFound";
 import Login from "./components/Login";
 import PostArticle from "./components/PostArticle.jsx";
+import Profile from "./context/Profile.jsx";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/home/:topic" element={<Home />} />
         <Route path="/home/:topic/:article_id" element={<ArticlePage />} />
         <Route path="/home/post" element={<PostArticle />} />
+        <Route path="/home/profile/:username" element={<Profile />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

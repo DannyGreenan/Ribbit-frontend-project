@@ -58,7 +58,7 @@ export const Header = () => {
 
             <Nav.Link
               as={Link}
-              to="/profile"
+              to={`/home/profile/${user.username}`}
               className={
                 activeLink === "profile" ? "active navbar-link" : "navbar-link"
               }

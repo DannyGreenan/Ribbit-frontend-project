@@ -16,8 +16,21 @@ export const getAllArticles = (topic, pageNum, sortByQuery, orderQuery) => {
       params: {
         topic: topic,
         p: pageNum,
+        limit: 12,
         sort_by: sortByQuery,
         order: orderQuery,
+      },
+    })
+    .then(({ data }) => {
+      return data.articles;
+    });
+};
+
+export const getArticlesByAuthor = (author) => {
+  return ncNews
+    .get("articles", {
+      params: {
+        author,
       },
     })
     .then(({ data }) => {
