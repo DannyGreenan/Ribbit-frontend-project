@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
@@ -10,6 +9,7 @@ import Footer from "./components/Footer";
 import ArticlePage from "./components/ArticlePage";
 import PageNotFound from "./components/Errors/PageNotFound";
 import Login from "./components/Login";
+import PostArticle from "./components/PostArticle.jsx";
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/home/:topic" element={<Home />} />
         <Route path="/home/:topic/:article_id" element={<ArticlePage />} />
+        <Route path="/home/post" element={<PostArticle />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

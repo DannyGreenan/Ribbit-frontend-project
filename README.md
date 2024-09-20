@@ -29,3 +29,6 @@ run npm install to install all libaries listed in the package.JSON
 **Node.js**: Minimum version `v22.3.0`
 
 This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
+
+<!-- Add ability to delete articles
+Add patch to comment votes -->

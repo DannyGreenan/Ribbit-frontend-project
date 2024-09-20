@@ -3,8 +3,14 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { getAllArticles } from "../api";
 import Pagination from "react-bootstrap/Pagination";
 import topicErrorImg from "../assets/img/topic-error.png";
+import upVoteImg from "../assets/img/up.png";
 
-import { CaretUp, ChatDots, ArrowRightCircle } from "react-bootstrap-icons";
+import {
+  CaretUp,
+  ChatDots,
+  ArrowRightCircle,
+  Share,
+} from "react-bootstrap-icons";
 
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 import loadingAni from "../assets/animation/loading.json";
@@ -43,18 +49,9 @@ const Home = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setError(true);
       });
   }, [topic, sortByQuery, orderQuery, pageNum]);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   getAllArticles(topic, pageNum).then((articles) => {
-  //     SetArticles(articles);
-  //     setIsLoading(false);
-  //   });
-  // }, [pageNum]);
 
   const changePage = (Num) => {
     setPageNum(Num);
@@ -186,7 +183,7 @@ const Home = () => {
                     <Col
                       xs={12}
                       sm={6}
-                      md={3}
+                      md={4}
                       lg={3}
                       key={index}
                       className="mb-4">
@@ -198,30 +195,45 @@ const Home = () => {
                         className="custom-card">
                         <Card.Img variant="top" src={article.article_img_url} />
                         <Card.Body>
-                          <Card.Text>p/{article.topic}</Card.Text>
+                          <Row className="d-flex justify-content-between align-items-center">
+                            <Col>
+                              <Card.Text>p/{article.topic}</Card.Text>
+                            </Col>
+                            <Col sm={6}></Col> {}
+                            <Col className="d-flex justify-content-end align-items-center">
+                              <img
+                                src={upVoteImg}
+                                alt="Upvote"
+                                className="me-2"
+                                style={{ width: "25px", height: "25px" }}
+                              />
+                              {article.votes}
+                            </Col>
+                          </Row>
 
-                          <Card.Title>{article.title}</Card.Title>
                           <Row>
-                            <Col md={4}>
-                              <Button
+                            <Card.Title>{article.title}</Card.Title>
+                          </Row>
+                          <Row className="d-flex justify-content-between flex-row">
+                            <Col className="col-4 d-flex justify-content-center">
+                              <button
                                 as={Link}
                                 to={`/home/${article.topic}/${article.article_id}`}
                                 className="custom-button">
-                                {article.votes}
-                                <CaretUp size={25} className="card-button" />
-                              </Button>
+                                <Share size={25} className="card-button" />
+                              </button>
                             </Col>
-                            <Col md={4}>
+                            <Col className="col-4 d-flex justify-content-center">
                               {" "}
-                              <Button
+                              <button
                                 className="custom-button"
                                 as={Link}
                                 to={`/home/${article.topic}/${article.article_id}`}>
                                 <ChatDots size={25} className="card-button" />{" "}
-                              </Button>
+                              </button>
                             </Col>
-                            <Col md={4}>
-                              <Button
+                            <Col className="col-4 d-flex justify-content-center">
+                              <button
                                 className="custom-button"
                                 as={Link}
                                 to={`/home/${article.topic}/${article.article_id}`}>
@@ -229,7 +241,7 @@ const Home = () => {
                                   size={25}
                                   className="card-button"
                                 />
-                              </Button>
+                              </button>
                             </Col>
                           </Row>
                         </Card.Body>
