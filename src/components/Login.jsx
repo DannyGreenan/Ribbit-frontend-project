@@ -15,7 +15,7 @@ const Login = () => {
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   const period = 2000;
 
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState("tickle122");
   const [usernameError, setUsernameError] = useState(false);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   const { user, setUser } = useContext(UserContext);
@@ -137,7 +137,7 @@ const Login = () => {
                 </Col>
                 <Col>
                   <Link to="#" onClick={handleBrowseTopicsClick}>
-                    <button type="button" disabled={isDisabled}>
+                    <button type="button" disabled={false}>
                       Browse Topics
                       <ArrowRightCircle size={25} />
                     </button>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { UserContext } from "../context/User";
 import { Link } from "react-router-dom";
 
@@ -91,9 +91,10 @@ export const Header = () => {
                 <img src={navIcon3} alt=""></img>
               </a>
             </div>
-            <button className="vvd" onClick={() => console.log("connect")}>
+
+            <Button className="post-button" as={Link} to="/home/post">
               <span>Post an Article</span>
-            </button>
+            </Button>
           </span>
         </Navbar.Collapse>
       </Container>
