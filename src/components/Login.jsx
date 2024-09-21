@@ -75,11 +75,22 @@ const Login = () => {
 
   const handleBrowseTopicsClick = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (formRef.current) {
       if (formRef.current.checkValidity()) {
-        navigate("/home");
+        getUser(input)
+          .then((user) => {
+            setUser(user);
+            setIsLoading(false);
+            navigate("/home");
+          })
+          .catch((err) => {
+            setUsernameError(true);
+            setIsLoading(false);
+          });
       } else {
         formRef.current.reportValidity();
+        setIsLoading(false);
       }
     }
   };
@@ -113,9 +124,15 @@ const Login = () => {
                   onChange={(e) => setInput(e.target.value)}
                 />
                 {user.username ? null : (
-                  <Form.Label style={{ color: "grey" }}>
-                    Please Login, example = tickle122
-                  </Form.Label>
+                  <>
+                    <Form.Label style={{ color: "grey" }}>
+                      Please Login, example = tickle122{" "}
+                      <p style={{ color: "grey", fontSize: "12px" }}>
+                        (Render server might need time to bootup, login could
+                        take up to 50 seconds.)
+                      </p>
+                    </Form.Label>
+                  </>
                 )}
                 {usernameError ? (
                   <Form.Label style={{ color: "red" }}>
@@ -131,14 +148,14 @@ const Login = () => {
               <Row>
                 <Col>
                   <button type="submit">
-                    {isLoading ? "Logging In ..." : "Login "}{" "}
+                    {isLoading ? "Logging in ..." : "Login "}{" "}
                     <ArrowRightCircle size={25} />
                   </button>
                 </Col>
                 <Col>
                   <Link to="#" onClick={handleBrowseTopicsClick}>
                     <button type="button" disabled={false}>
-                      Browse Topics
+                      {isLoading ? "Logging in ..." : "Browse Topics"}
                       <ArrowRightCircle size={25} />
                     </button>
                   </Link>

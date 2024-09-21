@@ -101,9 +101,20 @@ nav.navbar {
   z-index: 9999;
   transition: 0.32s ease-in-out;
 }
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background-color: #dfebdf;
+    border-radius: 10px;
+    padding: 10px;
+    border: 3px solid #00414f;
+  }
+}
+
 nav.navbar.scrolled {
   padding: 0px 0;
   background-color: #ffffff;
+  color: #00414f;
 }
 nav.navbar a.navbar-brand {
   width: 9%;
@@ -220,19 +231,19 @@ nav.navbar .navbar-toggler-icon {
   height: 17px;
   background-image: none;
   position: relative;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #00414f;
   transition: all 300ms linear;
   top: -2px;
 }
 nav.navbar .navbar-toggler-icon:focus {
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #00414f;
 }
 nav.navbar .navbar-toggler-icon:after,
 nav.navbar .navbar-toggler-icon:before {
   width: 24px;
   position: absolute;
   height: 2px;
-  background-color: #fff;
+  background-color: #00414f;
   top: 0;
   left: 0;
   content: "";
@@ -242,6 +253,7 @@ nav.navbar .navbar-toggler-icon:before {
 nav.navbar .navbar-toggler-icon:after {
   top: 8px;
 }
+
 nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:after {
   transform: rotate(45deg);
   background-color: #fff;
@@ -256,9 +268,18 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-color: transparent;
 }
 
+.navbar-logo {
+  width: 100px;
+}
+
+@media (max-width: 767px) {
+  .navbar-logo {
+    width: 150px;
+  }
+}
+
 .banner {
   margin-top: 0;
-  padding: 260px 0 100px 0;
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -299,6 +320,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   font-weight: 700;
   font-size: 20px;
   margin-top: 60px;
+  margin-bottom: 60px;
   letter-spacing: 0.8px;
   display: flex;
   align-items: center;
@@ -393,6 +415,19 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   background-color: #00414f;
   border: 1px solid #00414f;
 }
+
+.home .sort-button {
+  background-color: #00414f00;
+  color: #00414f;
+  margin-bottom: 20px;
+}
+
+.home .sort-button:hover {
+  background-color: #00414f;
+  color: #ffffff;
+  border: 1px solid #00414f;
+}
+
 .home .custom-card .custom-button:hover {
   border: 1px solid #ffffff;
   color: #ffffff;
@@ -457,6 +492,17 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   color: #ffffff;
 }
 
+.article-page .article-button {
+  background-color: #00414f !important;
+  border: #00414f;
+}
+
+.article-page .article-button:hover {
+  background-color: #ffffff !important;
+  color: #00414f;
+  border: 1px solid #00414f;
+}
+
 .article-page .error-img {
   width: 300px;
   height: 300px;
@@ -472,9 +518,10 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .article-page .comment-pool {
-  background-image: url("/src/assets/img/comment-banner.png");
+  background-image: url("/src/assets/img/comment-pool.jpeg");
   background-size: cover;
   height: 100%;
+  width: 100%;
   overflow: hidden;
   border-radius: 40px;
 }
@@ -489,6 +536,14 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .article-page .alert {
   height: fit-content;
+}
+
+.article-page .topic-link {
+  color: #00414f;
+}
+
+.article-page .alert h5 {
+  color: #00414f;
 }
 
 .article-page .alert .author {
@@ -513,14 +568,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 /* Footer CSS */
 
-.footer {
-  border-radius: 30px;
-  overflow: hidden;
-}
-
 .footer img {
-  height: 30%;
-  width: 80%;
+  height: auto;
+  width: 100%;
   display: block;
   margin: 0 auto;
   text-align: center;
@@ -531,6 +581,19 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .post-article-form {
   color: #00414f;
   padding: 260px 0 100px 0;
+}
+
+.post-article-form .post-button {
+  margin-top: 20px;
+  background-color: #00414f;
+  color: #ffffff;
+  border: 3px solid #00414f;
+}
+
+.post-article-form .post-button:hover {
+  background-color: #ffffff;
+  color: #00414f;
+  border: 3px solid #00414f;
 }
 
 /* Profile Css */

@@ -79,8 +79,8 @@ const PostArticle = () => {
       ) : (
         <section className="post-article-form">
           <Row>
-            <Col md={3}></Col>
-            <Col md={6}>
+            <Col xs={1}></Col>
+            <Col xs={10}>
               <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="validationCustom01">
@@ -168,13 +168,16 @@ const PostArticle = () => {
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
-                    Please give a image url.
+                    Please give a image url. You could use this
+                    (https://tinyurl.com/RibbitRibbitFrog)
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Button type="submit">Submit form</Button>
+                <Button type="submit" className="post-button">
+                  Submit form
+                </Button>
               </Form>
             </Col>
-            <Col md={3}></Col>
+            <Col xs={1}></Col>
           </Row>
         </section>
       )}

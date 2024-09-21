@@ -31,35 +31,6 @@ const Profile = () => {
 
   return (
     <>
-      {" "}
-      <Card
-        style={{
-          position: "fixed",
-          top: "200px",
-          color: "#00414f",
-        }}>
-        <Card.Body>
-          <Row>
-            <span>Logged in as ...</span>
-          </Row>
-          <br></br>
-          <Card.Img
-            variant="top"
-            src={userProfile.avatar_url}
-            alt="Reddit avatar"
-            style={{ width: "60px", borderRadius: "50%" }}
-          />
-          <Card.Title>{userProfile.name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            u/{userProfile.username}
-          </Card.Subtitle>
-        </Card.Body>
-        <Card.Footer>
-          <Link>
-            <span>My Profile</span>
-          </Link>
-        </Card.Footer>
-      </Card>
       <div className="user-page">
         <Container>
           <Row>
@@ -70,7 +41,7 @@ const Profile = () => {
                 alt="User Avatar"
                 style={{
                   width: "150px",
-                  height: "100px", // Ensure equal width and height
+                  height: "100px",
                 }}
               />
             </Col>

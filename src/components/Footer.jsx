@@ -3,7 +3,7 @@ import banner from "../assets/img/banner-bg.png";
 const Footer = () => {
   return (
     <section className="footer">
-      <img src={banner}></img>
+      <img src={banner} alt="ribbit banner"></img>
     </section>
   );
 };

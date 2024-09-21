@@ -12,9 +12,7 @@ import {
 
 import { UserContext } from "../context/User";
 
-//in vs code, setup with superbase/ npm run seed prod
-//market project
-
+import commentPool from "../assets/img/comment-pool.png";
 import upLogo from "../assets/img/up.png";
 import upLogoPressed from "../assets/img/up-pressed.png";
 import downLogo from "../assets/img/down.png";
@@ -130,35 +128,6 @@ const ArticlePage = () => {
 
   return (
     <>
-      {" "}
-      <Card
-        style={{
-          position: "fixed",
-          top: "200px",
-          color: "#00414f",
-        }}>
-        <Card.Body>
-          <Row>
-            <span>Logged in as ...</span>
-          </Row>
-          <br></br>
-          <Card.Img
-            variant="top"
-            src={user.avatar_url}
-            alt="Reddit avatar"
-            style={{ width: "60px", borderRadius: "50%" }}
-          />
-          <Card.Title>{user.name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            u/{user.username}
-          </Card.Subtitle>
-        </Card.Body>
-        <Card.Footer>
-          <Link>
-            <span>My Profile</span>
-          </Link>
-        </Card.Footer>
-      </Card>
       {error ? (
         <div
           style={{
@@ -181,25 +150,31 @@ const ArticlePage = () => {
       ) : (
         <section className="article-page">
           <Row>
-            <Col xs={3}></Col>
+            <Col xs={1}></Col>
             <Col>
-              <Link to={`/home/${topic}`}>/{topic}</Link>
+              <Link className="topic-link" to={`/home/${topic}`}>
+                /{topic}
+              </Link>
             </Col>
-            <Col xs={4}></Col>
+            <Col xs={2}></Col>
             <Col>
               {article.author === user.username ? (
-                <Button onClick={() => handleDelete({ article_id })}>
+                <Button
+                  className="article-button"
+                  onClick={() => handleDelete({ article_id })}>
                   delete my post
                 </Button>
               ) : null}
             </Col>
-            <Col xs={3}> </Col>
+            <Col xs={1}> </Col>
           </Row>
           <Row className="justify-content-md-center">
             <h2>{article.title}</h2>
           </Row>
           <Row className="justify-content-md-center">
-            <img src={article.article_img_url}></img>
+            <img
+              src={article.article_img_url}
+              alt={article.article_id + "article image"}></img>
           </Row>
           <Row>
             <Col xs={2}></Col>
@@ -219,9 +194,15 @@ const ArticlePage = () => {
                 ) : (
                   <>
                     {votedUp ? (
-                      <img className="votes-img" src={upLogoPressed}></img>
+                      <img
+                        className="votes-img"
+                        src={upLogoPressed}
+                        alt="upvote button pressed"></img>
                     ) : (
-                      <img className="votes-img" src={upLogo}></img>
+                      <img
+                        className="votes-img"
+                        src={upLogo}
+                        alt="upvote button"></img>
                     )}
                   </>
                 )}
@@ -244,9 +225,15 @@ const ArticlePage = () => {
                 ) : (
                   <>
                     {votedDown ? (
-                      <img className="votes-img" src={downLogoPressed}></img>
+                      <img
+                        className="votes-img"
+                        src={downLogoPressed}
+                        alt="downvote button pressed"></img>
                     ) : (
-                      <img className="votes-img" src={downLogo}></img>
+                      <img
+                        className="votes-img"
+                        src={downLogo}
+                        alt="downvote button"></img>
                     )}
                   </>
                 )}
@@ -276,6 +263,7 @@ const ArticlePage = () => {
                     <Col xs={4}>
                       <FloatingLabel label="Comment" className="mb-3">
                         <Form.Control
+                          for="Comment"
                           as="textarea"
                           placeholder="Leave a comment here.."
                           value={commentInput}
@@ -287,7 +275,7 @@ const ArticlePage = () => {
                     </Col>
 
                     <Col xs={2}>
-                      <Button type="submit" className="comment-button">
+                      <Button type="submit" className="article-button">
                         {isLoadingComment
                           ? "Adding comment ..."
                           : "Post comment"}
@@ -304,8 +292,8 @@ const ArticlePage = () => {
                 </Form>
                 {comments.length > 0 ? (
                   <Row>
-                    <Col sm={3}></Col>
-                    <Col sm>
+                    <Col xs={1}></Col>
+                    <Col xs={10}>
                       {comments.map((comment, index) => {
                         return (
                           <Alert key={index} variant="info" className="alert">
@@ -347,7 +335,8 @@ const ArticlePage = () => {
                                   {
                                     <img
                                       className="votes-img"
-                                      src={upLogo}></img>
+                                      src={upLogo}
+                                      alt="upvote button"></img>
                                   }
                                 </Button>
                                 <Button className="votes-button" disabled>
@@ -365,7 +354,8 @@ const ArticlePage = () => {
                                   {
                                     <img
                                       className="votes-img"
-                                      src={downLogo}></img>
+                                      src={downLogo}
+                                      alt="downvote button"></img>
                                   }
                                 </Button>
                                 {comment.author === user.username ? (
@@ -386,7 +376,7 @@ const ArticlePage = () => {
                         );
                       })}
                     </Col>
-                    <Col sm={3}></Col>
+                    <Col xs={1}></Col>
                   </Row>
                 ) : (
                   <Row>

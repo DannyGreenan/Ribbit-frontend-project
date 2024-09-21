@@ -11,26 +11,68 @@ import PageNotFound from "./components/Errors/PageNotFound";
 import Login from "./components/Login";
 import PostArticle from "./components/PostArticle.jsx";
 import Profile from "./context/Profile.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 function App() {
   return (
     <>
-      <Header />
+      <ScrollToTop />
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route
-          path="/"
+          path="/home"
           element={
             <>
-              <Login />
+              <Header />
+              <Home />
             </>
           }
         />
-        <Route path="/home" element={<Home />} />
-        <Route path="/home/:topic" element={<Home />} />
-        <Route path="/home/:topic/:article_id" element={<ArticlePage />} />
-        <Route path="/home/post" element={<PostArticle />} />
-        <Route path="/home/profile/:username" element={<Profile />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route
+          path="/home/:topic"
+          element={
+            <>
+              <Header />
+              <Home />
+            </>
+          }
+        />
+        <Route
+          path="/home/:topic/:article_id"
+          element={
+            <>
+              <Header />
+              <ArticlePage />
+            </>
+          }
+        />
+        <Route
+          path="/home/post"
+          element={
+            <>
+              <Header />
+              <PostArticle />
+            </>
+          }
+        />
+        <Route
+          path="/home/profile/:username"
+          element={
+            <>
+              <Header />
+              <Profile />
+            </>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <Header />
+              <PageNotFound />
+            </>
+          }
+        />
       </Routes>
       <Footer />
     </>

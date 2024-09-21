@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, Card, Row } from "react-bootstrap";
 import { UserContext } from "../context/User";
 import { Link } from "react-router-dom";
 
@@ -33,14 +33,15 @@ export const Header = () => {
   };
 
   const onLogout = () => {
-    setUser({});
+    if (window.confirm("Are you sure you want to logout?")) {
+      setUser({});
+    }
   };
-
   return (
     <Navbar expand="lg" className={scrolled ? "scrolled" : ""}>
       <Container>
         <Navbar.Brand as={Link} to="/home">
-          <img src={logo} alt="logo"></img>
+          <img src={logo} alt="ribbit logo" className="navbar-logo"></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
@@ -63,7 +64,18 @@ export const Header = () => {
                 activeLink === "profile" ? "active navbar-link" : "navbar-link"
               }
               onClick={() => onUpdateActiveLink("profile")}>
-              {user.username ? user.username : "Profile"}
+              {user.username ? (
+                <div className="d-flex align-items-center">
+                  <img
+                    src={user.avatar_url}
+                    alt="profile avatar"
+                    style={{ width: "40px", borderRadius: "50%" }}
+                  />
+                  <span className="ms-2"> {user.username}</span>
+                </div>
+              ) : (
+                "Profile"
+              )}
             </Nav.Link>
             <Nav.Link
               as={Link}
@@ -78,17 +90,30 @@ export const Header = () => {
 
           <span className="navbar-text">
             <div className="social-icon">
-              <a href="https://www.linkedin.com/in/danny-greenan/">
-                <img src={navIcon1} alt=""></img>
+              <a
+                href="https://www.linkedin.com/in/danny-greenan/"
+                target="_blank"
+                rel="noopener noreferrer">
+                <img src={navIcon1} alt="LinkedIn Icon"></img>
               </a>
               <a href="https://github.com/DannyGreenan">
-                <img src={navIcon4} alt=""></img>
+                <img
+                  src={navIcon4}
+                  alt="ArtStation Icon"
+                  target="_blank"
+                  rel="noopener noreferrer"></img>
               </a>
-              <a href="https://www.artstation.com/dannygreenan">
-                <img src={navIcon2} alt=""></img>
+              <a
+                href="https://www.artstation.com/dannygreenan"
+                target="_blank"
+                rel="noopener noreferrer">
+                <img src={navIcon2} alt="Resume Icon"></img>
               </a>
-              <a href="https://docs.google.com/document/d/1Oap6DoS1R_vl4su7goZcx_PZaqhcjxceXkMEEBGGqYU/edit?usp=sharing">
-                <img src={navIcon3} alt=""></img>
+              <a
+                href="https://docs.google.com/document/d/1Oap6DoS1R_vl4su7goZcx_PZaqhcjxceXkMEEBGGqYU/edit?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer">
+                <img src={navIcon3} alt="GitHub Icon"></img>
               </a>
             </div>
 

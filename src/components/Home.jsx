@@ -59,34 +59,6 @@ const Home = () => {
 
   return (
     <>
-      <Card
-        style={{
-          position: "fixed",
-          top: "200px",
-          color: "#00414f",
-        }}>
-        <Card.Body>
-          <Row>
-            <span>Logged in as ...</span>
-          </Row>
-          <br></br>
-          <Card.Img
-            variant="top"
-            src={user.avatar_url}
-            alt="Reddit avatar"
-            style={{ width: "60px", borderRadius: "50%" }}
-          />
-          <Card.Title>{user.name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            u/{user.username}
-          </Card.Subtitle>
-        </Card.Body>
-        <Card.Footer>
-          <Link>
-            <span>My Profile</span>
-          </Link>
-        </Card.Footer>
-      </Card>
       {error ? (
         <div
           style={{
@@ -106,10 +78,12 @@ const Home = () => {
       ) : (
         <section className="home">
           <Container>
-            <Row>
-              <Col md={9}>
+            <Row className="d-flex flex-wrap">
+              <Col xs={8}>
                 <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic">
+                  <Dropdown.Toggle
+                    id="dropdown-basic"
+                    className="w-100 sort-button">
                     {topic
                       ? topic.charAt(0).toUpperCase() + topic.slice(1)
                       : "Choose Topic"}
@@ -132,9 +106,11 @@ const Home = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>{" "}
-              <Col md={3}>
+              <Col xs={4}>
                 <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic">
+                  <Dropdown.Toggle
+                    id="dropdown-basic"
+                    className="w-100 sort-button">
                     {sortByQuery
                       ? sortByQuery.charAt(0).toUpperCase() +
                         sortByQuery.slice(1) +
@@ -202,7 +178,6 @@ const Home = () => {
                       buttons={["play", "repeat", "frame", "debug"]}
                     />
                   </Player>
-                  <h2>Articles Loading.. </h2>
                 </>
               ) : (
                 articles.map((article, index) => {
@@ -217,11 +192,20 @@ const Home = () => {
                       <Card
                         as={Link}
                         to={`/home/${article.topic}/${article.article_id}`}
-                        style={{ width: "100%" }}
+                        style={{ width: "100%", height: "100%" }}
                         key={article.title}
                         className="custom-card">
-                        <Card.Img variant="top" src={article.article_img_url} />
-                        <Card.Body>
+                        <Card.Img
+                          alt={article.article_id + "article image"}
+                          variant="top"
+                          src={article.article_img_url}
+                          style={{
+                            width: "100%",
+                            height: "200px",
+                            objectFit: "cover",
+                          }}
+                        />
+                        <Card.Body className="d-flex flex-column">
                           <Row className="d-flex justify-content-between align-items-center">
                             <Col>
                               <Card.Text>p/{article.topic}</Card.Text>
@@ -244,13 +228,17 @@ const Home = () => {
                             <Card.Title>{article.title}</Card.Title>
                           </Row>
                           <br></br>
-                          <Row className="d-flex justify-content-between flex-row">
+                          <Row className="d-flex justify-content-between flex-row mt-auto">
                             <Col className="col-4 d-flex justify-content-center">
                               <button
                                 as={Link}
                                 to={`/home/${article.topic}/${article.article_id}`}
                                 className="custom-button">
-                                <Share size={25} className="card-button" />
+                                <Share
+                                  size={25}
+                                  className="card-button"
+                                  alt="share button"
+                                />
                               </button>
                             </Col>
                             <Col className="col-4 d-flex justify-content-center">
@@ -277,6 +265,7 @@ const Home = () => {
                                 <ArrowRightCircle
                                   size={25}
                                   className="card-button"
+                                  alt="To article button"
                                 />
                               </button>
                             </Col>
