@@ -66,6 +66,7 @@ const Login = () => {
         setUsernameError(false);
         setIsLoading(false);
         setIsDisabled(false);
+        navigate("/home");
       })
       .catch((err) => {
         setUsernameError(true);

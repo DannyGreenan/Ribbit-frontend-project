@@ -109,6 +109,10 @@ nav.navbar {
     padding: 10px;
     border: 3px solid #00414f;
   }
+
+  .navbar-text {
+    color: red;
+  }
 }
 
 nav.navbar.scrolled {
@@ -123,7 +127,7 @@ nav.navbar .navbar-nav .nav-link.navbar-link {
   font-weight: 400;
   color: #00414f !important;
   letter-spacing: 0.8px;
-  padding: 0 25px;
+  padding: 15px 25px 15px 5px;
   font-size: 18px;
   opacity: 0.75;
 }
@@ -270,6 +274,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 .navbar-logo {
   width: 100px;
+  transform: translateY(-10px);
 }
 
 @media (max-width: 767px) {
