@@ -1,5 +1,7 @@
 # Ribbit Front-end Project
 
+![Ribbit Frontpage](https://github.com/DannyGreenan/Ribbit-frontend-project/blob/main/src/assets/img/Ribbit-Frontpage.png)
+
 ## Project Summary
 
 The website Ribbit is a modern web application designed to mimic a Reddit-like experience, where users can browse, post, and engage with various topics. Created using React, Vite and BootStrap.
